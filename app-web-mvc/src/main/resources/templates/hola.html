@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<!--th:text nomenclatura de texto en thimeleaf
+//simbolo del dolar con corche como tomo cualquier objeto-->
+	<h1 th:text="${key}"></h1>
+	<!--ESTO FUNCIONA CM UN FOR EN CODIGO. COPIADO DE THYMELEAF. ASIGNAMOS
+		UN NOMBRE RECORREMOS UNA LISTA...--->
+	<div th:each="pruebas: ${key}">
+	    <td th:text="${pruebas.id}"></td>
+	    <td th:text="${pruebas.name}">0.99</td>
+	  </div>
+	<!--<h1 th:text="${key.name}"></h1-->	
+</body>
+</html>
