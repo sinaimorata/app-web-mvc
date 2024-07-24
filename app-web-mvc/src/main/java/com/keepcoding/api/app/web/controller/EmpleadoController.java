@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.keepcoding.api.app.web.entity.Empleado;
 import com.keepcoding.api.app.web.service.EmpleadoService;
 //Todos los metodos q van a llamar a 1 pag HTML devuelven un string. El nombre del template
 @Controller
@@ -13,11 +16,35 @@ public class EmpleadoController {
 	//inyectar el servicio
 	@Autowired
 	private EmpleadoService empleadoService;
+	
+	
 	//Mapping -con esto asigno una ruta
-	@GetMapping("/empleados")
+	//se puede tener + d 1 ruta: mientodolo cm lo vemos
+	@GetMapping({"/", "/empleados"})
 	public String index(Model modelo) {
-		modelo.addAttribute("key",empleadoService.listarEmpleados());
-		return "hola";
+		modelo.addAttribute("empleados",empleadoService.listarEmpleados());
+		return "empleado";
 	}
+	@GetMapping("/empleado/new")
+	public String newEmpleadoForm(Model modelo) {
+		Empleado empleado = new Empleado();
+		modelo.addAttribute("empleado", empleado);
+		return "crear_empleado";
+	}
+	//metodo para guardar: post
+	@PostMapping("/empleado")
+	public String saveEmpleado(@ModelAttribute("empleado") Empleado empleado) {
+		//anotacion especifica pr recibir modelo:modelAttribute. anotacion q vincula 1 parametro de un met a
+		//un valor de retorno de un metodo
+		empleadoService.guardarEmpleado(empleado);
+		//el error daba pq el return q debía devolver un string.Apuntar de vueltaal home. redirect: home
+		return "redirect:/";
+	}
+	//PARA 1 VISTA Q HACE 1 REGISTRO TENGO Q HACER DOS MET: ELQUE LLAME A ESA VISTA Y LA OTRA Q RECIBE ESOS 
+	//ATRIBUTOS. EN CREAR EMPLEADO DEBO CONVERTIR EL MODELO A LOS CASMPOS Q PASA AQUI. UN MODELO VACIO EN EMPLEAO CONTRO
+	//Y SE LO PASO A CREAR EMPLEADO
 	
 }
+
+
+

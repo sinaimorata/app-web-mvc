@@ -26,6 +26,30 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 	public List<Empleado> listarEmpleados() {		
 		return empleadoRepository.findAll();
 	}
+
+	@Override
+	public Empleado guardarEmpleado(Empleado empleado) {
+		// TODO Auto-generated method stub
+		return empleadoRepository.save(empleado);
+	}
+
+	@Override
+	public Empleado obtenerEmpleado(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Empleado actualizarEmpleado(Empleado empleado) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void eliminarEmpleado(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }
