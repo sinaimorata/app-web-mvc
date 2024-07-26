@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.keepcoding.api.app.web.entity.Empleado;
@@ -40,11 +41,43 @@ public class EmpleadoController {
 		//el error daba pq el return q debía devolver un string.Apuntar de vueltaal home. redirect: home
 		return "redirect:/";
 	}
+	
+	//@PathVariable:recibir valores q estan en ruta.
+	@GetMapping("/empleado/editar/{id}")
+	public String updateEmpleadoForm(@PathVariable Long id, Model modelo) {
+		modelo.addAttribute("empleado_update",empleadoService.obtenerEmpleado(id) );
+		return "editar_empleado";
+	}
+	@PostMapping("/empleado/{id}")
+	public String updateEmpleado(@PathVariable Long id, @ModelAttribute("empleado_update")Empleado empleado) {
+		Empleado empleadoExistente = empleadoService.obtenerEmpleado(id);
+		empleadoExistente.setId(id);
+		empleadoExistente.setNombre(empleado.getNombre());
+		empleadoExistente.setApellido(empleado.getApellido());
+		empleadoExistente.setEmail(empleado.getEmail());
+		empleadoExistente.setTelefono(empleado.getTelefono());
+		
+		empleadoService.actualizarEmpleado(empleadoExistente);
+		
+		
+		return "redirect:/";
+	}
+	
+	@GetMapping("/empleado/delete/{id}")
+	public String deleteEmpleado(@PathVariable Long id){
+		empleadoService.eliminarEmpleado(id);
+		return "redirect:/";
+	}
+		
+	
+	
 	//PARA 1 VISTA Q HACE 1 REGISTRO TENGO Q HACER DOS MET: ELQUE LLAME A ESA VISTA Y LA OTRA Q RECIBE ESOS 
 	//ATRIBUTOS. EN CREAR EMPLEADO DEBO CONVERTIR EL MODELO A LOS CASMPOS Q PASA AQUI. UN MODELO VACIO EN EMPLEAO CONTRO
 	//Y SE LO PASO A CREAR EMPLEADO
 	
 }
-
+	//ULTIMO PASO LLAMAR AL CONTROLADOR DESDE DD VENIMOS EMPLEADO SERVICE:PRIMERO TEMA DEL ACTUALIZAR Q ESLO
+    //MAS LARGO. PARA ACTUALIZAR NECESITO 2 METODOS:LLAMAR AL FORMULARIO Y OTRA Q GUARDA COMO TAL. X TT 1
+	//GET MAPPING Y 
 
 

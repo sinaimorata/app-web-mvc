@@ -29,25 +29,25 @@ public class EmpleadoServiceImpl implements EmpleadoService {
 
 	@Override
 	public Empleado guardarEmpleado(Empleado empleado) {
-		// TODO Auto-generated method stub
+		
 		return empleadoRepository.save(empleado);
 	}
-
+//empleadoRepository.finById es un opcional y necesita del get pr capturarlo y lo hace con el get
 	@Override
 	public Empleado obtenerEmpleado(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return empleadoRepository.findById(id).get() ;
 	}
-
+//actualizar empleado es replicar
 	@Override
 	public Empleado actualizarEmpleado(Empleado empleado) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return empleadoRepository.save(empleado);
 	}
-
+//
 	@Override
 	public void eliminarEmpleado(Long id) {
-		// TODO Auto-generated method stub
+		empleadoRepository.deleteById(id);
 		
 	}
 	

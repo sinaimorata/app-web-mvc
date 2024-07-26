@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="https://www.thymeleaf.org/">
+<!-- AÑADO LOS BOTONES EN EL HOME DE LA VISTA X DD LLAMO A BORRAR Y EDITAR-->
+
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title> 
+	<title>App Web</title> 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -37,7 +39,13 @@
 		<h1>Lista de Empleados</h1>
 	
 	</div>
-	
+<!-- QUIERO AGREGAR 2BOTONES Q SERVIRIAN PR EL BORRADO. AGREGAR UN ITEM + A LA ETIQUETA TABLE Q TENGO Q
+AGREGAR: EN THEADCOPIO LA ULTIMA PONGO ACCIONES CON ESTO TENGO 1 NEW COLUMN  y leugo en td pongo 2 acciones q no son 
+de tipo button y x eso lo hago diferente. ahora uso el ancor q tamb puede funcionar como boton y para q parezca boto
+escritir clas btn btn tnf . CON ESTO CREO DOS NUEVOS BOTONES Y CON DIFERENTES COLORES-->
+
+
+
 	<table class="table">
   		<thead class="table-dark">
     		<tr>
@@ -46,16 +54,21 @@
       			<th scope="col">Apellido</th>
       			<th scope="col">Email</th>
       			<th scope="col">Telefono</th>
+      			<th scope="col">Acciones</th>
     		</tr>
   		</thead>
   <tbody>
     <tr th:each="emp: ${empleados}">
 <!--escope row pone negrita  -->
+
       <th th:text="${emp.id}"scope="row"></th>
       <td th:text="${emp.nombre}"></td>
       <td th:text="${emp.apellido}"></td>
       <td th:text="${emp.email}"></td>
       <td th:text="${emp.telefono}"></td>
+      <td> 
+      	<a class="btn btn-info" th:href=@{/empleado/editar/{id}(id=${emp.id})}>Editar</a>
+      	<a class="btn btn-danger" th:href=@{/empleado/delete/{id}(id=${emp.id})} onclick="return confirm('Estas seguro?');">Borrar</a>
     </tr>
     
   </tbody>
