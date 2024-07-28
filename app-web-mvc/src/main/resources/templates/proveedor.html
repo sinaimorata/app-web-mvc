@@ -25,7 +25,7 @@
         <li class="nav-item">
           <a class="nav-link" th:href=@{/empleado/new} >Nuevo Empleado</a>
         </li>
-      	<li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" th:href=@{/proveedores} >Proveedores</a>
       	</li>
       </ul>
@@ -36,9 +36,21 @@
 <div class="container">
 	<div class="row">
 <!-- h1 titulo -->
-		<h1>Lista de Empleados</h1>
+		<h1>Lista de Proveedores</h1>
 	
 	</div>
+	
+	<!-- Este bloque es para hacer un filtro en una lista y ahora adaptamos: -->
+	
+	<form class="row g-3"th:action="@{/proveedores}">
+  <div class="col-auto">
+    <label for="staticEmail2" class="visually-hidden">Filtro</label>
+    <input type="text"class="form-control-plaintext" placeholder="Ingrese su busqueda"name= "datoBuscado" id="datoBuscado"th:value="${datoBuscado}" >
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary mb-3">Buscar</button>
+  </div>
+</form>
 <!-- QUIERO AGREGAR 2BOTONES Q SERVIRIAN PR EL BORRADO. AGREGAR UN ITEM + A LA ETIQUETA TABLE Q TENGO Q
 AGREGAR: EN THEADCOPIO LA ULTIMA PONGO ACCIONES CON ESTO TENGO 1 NEW COLUMN  y leugo en td pongo 2 acciones q no son 
 de tipo button y x eso lo hago diferente. ahora uso el ancor q tamb puede funcionar como boton y para q parezca boto
@@ -51,24 +63,23 @@ escritir clas btn btn tnf . CON ESTO CREO DOS NUEVOS BOTONES Y CON DIFERENTES CO
     		<tr>
       			<th scope="col">#</th>
       			<th scope="col">Nombre</th>
-      			<th scope="col">Apellido</th>
+      			<th scope="col">Cif</th>
+      			<th scope="col">Direccion</th>
       			<th scope="col">Email</th>
       			<th scope="col">Telefono</th>
-      			<th scope="col">Acciones</th>
     		</tr>
   		</thead>
   <tbody>
-    <tr th:each="emp: ${empleados}">
+    <tr th:each="pro: ${proveedor}">
 <!--escope row pone negrita  -->
 
-      <th th:text="${emp.id}"scope="row"></th>
-      <td th:text="${emp.nombre}"></td>
-      <td th:text="${emp.apellido}"></td>
-      <td th:text="${emp.email}"></td>
-      <td th:text="${emp.telefono}"></td>
-      <td> 
-      	<a class="btn btn-info" th:href=@{/empleado/editar/{id}(id=${emp.id})}>Editar</a>
-      	<a class="btn btn-danger" th:href=@{/empleado/delete/{id}(id=${emp.id})} onclick="return confirm('Estas seguro?');">Borrar</a>
+      <th th:text="${pro.id}"scope="row"></th>
+      <td th:text="${pro.nombre}"></td>
+      <td th:text="${pro.cif}"></td>
+      <td th:text="${pro.direccion}"></td>
+      <td th:text="${pro.email}"></td>
+      <td th:text="${pro.telefono}"></td>
+      
     </tr>
     
   </tbody>
